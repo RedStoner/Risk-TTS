@@ -1,11 +1,14 @@
 function onLoad()
   trackedDice = {}
   startedRolling = false
-  defender = true
+  defender = false
+  if self.guid == "44e410" then
+    defender = true
+  end
   currentUser = "Grey"
   tColor = {1,1,1}
   buttons = {}
-  buttons[1] = {click_function = "none", index = 0, function_owner = self, label = "Attack Again?", position = {0, -2.14, -3.2}, rotation = {0, 180, 0}, scale = {0, 0, 0}, width = 2000, height = 400, font_size = 330}
+  buttons[1] = {click_function = "none", index = 0, function_owner = self, label = "Attack Again?", position = {0, -2.14, -3.2}, rotation = {0, 180, 0}, scale = {0, 0, 0}, width = 2000, height = 400, font_size = 330, attackAgain = false}
   buttons[2] = {click_function = "repeatYes", index = 1, function_owner = self, label = "Yes", position = {0.54, -2.14, -3.6}, rotation = {0, 180, 0}, scale = {0, 0, 0}, width = 998, height = 400, font_size = 400, on = false}
   buttons[3] = {click_function = "repeatNo", index = 2, function_owner = self, label = "No", position = {-0.54, -2.14, -3.6}, rotation = {0, 180, 0}, scale = {0, 0, 0}, width = 998, height = 400, font_size = 400, on = false}
   
@@ -47,9 +50,45 @@ function onLoad()
     Grey = {1, 1, 1, 1},
   }
   diceAmount({0})
-  --showAttackAgain({true})
+  Global.call('objectLoadFinished',{self.guid})
 end
-
+function getSaveData()
+  local data = {
+    currentUser = currentUser,
+    trackedDice = trackedDice,
+    startedRolling = startedRolling,
+    attackAgain = buttons[1].attackAgain,
+    buttonStates = {}
+  }
+  
+  for i=1, #buttons - 3 do
+    --print("Button state for " .. i+3 .. " is " .. tostring(buttons[i+3].on) )
+    data.buttonStates[i] = buttons[i+3].on
+  end
+  return data
+end
+function loadSaveData(d)
+  --addNotebookTab({title = "roller", body = JSON.encode_pretty(data)})
+  data = d[1]
+  currentUser = data.currentUser
+  trackedDice = data.trackedDice
+  startedRolling = data.startedRolling
+  --update attack again button
+  showAttackAgain({data.attackAgain,currentUser})
+  --update the amount to roll buttons
+  for i=1,#data.buttonStates do
+    if data.buttonStates[i]  then
+      buttons[i+3].color = pColors[currentUser]
+      buttons[i+3].font_color = tColors[currentUser]
+      buttons[i+3].on = true
+    else
+      buttons[i+3].color = pColors["Grey"]
+      buttons[i+3].font_color = pColors["Grey"]
+      buttons[i+3].on = false
+    end
+    self.editButton(buttons[i])
+  end
+end
 function onUpdate()
   if #trackedDice > 0 and startedRolling then
     for k,v in pairs(trackedDice) do
@@ -132,8 +171,8 @@ function diceAmount(data)
   if num < numButtons then
     local offset = numButtons - num
     for i=1,offset do
-      buttons[num + i + 3].color = {0.5,0.5,0.5}
-      buttons[num + i + 3].font_color = {0.5,0.5,0.5}
+      buttons[num + i + 3].color = pColors["Grey"]
+      buttons[num + i + 3].font_color = pColors["Grey"]
       buttons[num + i + 3].on = false
       self.editButton(buttons[num + i + 3])
     end
@@ -146,9 +185,18 @@ function showAttackAgain(data)
     if activate then
       buttons[i].scale = {0.5,0.5,0.5}
       buttons[i].color = pColors[data[2]]
+      if i == 1 then
+        buttons[i].attackAgain = true
+      end
     else
       buttons[i].scale = {0,0,0}
+      if i == 1 then
+        buttons[i].attackAgain = false
+      end
     end
     self.editButton(buttons[i])
   end
+end
+function none()
+
 end

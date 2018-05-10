@@ -31,6 +31,7 @@ function onLoad()
     self.createButton(buttonsOutline[k])
     self.createButton(v)
   end
+  Global.call('objectLoadFinished',{self.guid})
 end
 function strategicConfig(o,c)
   if gameStarted then

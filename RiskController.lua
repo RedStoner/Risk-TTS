@@ -13,7 +13,7 @@ function onLoad()
     White = {0.25, 0.25, 0.25, 1},
     Red = {1, 1, 1, 1}, 
     Orange = {1, 1, 1, 1},
-    Yellow = {0.25, 0.25, 0.25, 1},
+    Yellow = {0, 0, 0, 1},
     Green = {1, 1, 1, 1},
     Blue = {1, 1, 1, 1}, 
     Pink = {1, 1, 1, 1},
@@ -59,6 +59,7 @@ function onLoad()
   local _scale = {62.38, 1.0, 20.34}
   cardZone.setScale(_scale)
   updateZone()
+  Global.call('objectLoadFinished',{self.guid})
 end
 function onCollisionEnter(collision)
   if cardZone ~= nil then

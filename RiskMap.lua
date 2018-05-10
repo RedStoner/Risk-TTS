@@ -1,7 +1,8 @@
-
 --[[
+Testing adding a line
 TODO:
-Setup Phase:
+Setup Phase: 
+  fix - game crashes when a player is seated in an inproper color that is not tracked.
 TurnInSets:
  fix special turn in set breaking out when config says it shouldnt -- test
 Reinforce:
@@ -10,6 +11,7 @@ Strategic:
 End Turn:
 
 Optional Stuff:
+  add in tooltips for territory buttons with territory name
   add in mission cards 
   save every time a territory is updated, and allow quick replay of game just played. 
   add house rule option for defender bonus over water. 
@@ -21,7 +23,17 @@ Optional Stuff:
       moved continents data to own function to allow resetting.
   on full player rotation in 2 player game, give neutral player a card to give incentive to KILL/DEFEND the neutral
   vote for rules.
-]] --
+
+Changelog
+  Fixed Attack Again button giving a minor error about not having a function it can call.
+  Fixed Player's clock continued to tick after game over.
+  Fixed Error when a player is seated in a color that is not assigned to the table.
+  Started Game Saving:
+    - Can resume the game from most points
+      - combat phase is not yet fully supported!
+        - specifically when dice are rolling.
+  
+  ]] --
 
 
 
@@ -29,16 +41,16 @@ Optional Stuff:
 -- SETUP FUNCTIONS --
 -----------------------
 -- Country Info
-function onLoad()
-  debugStart = false
-  doBiasedStart = false
+function onLoad(save_state)
+  tColor = {1,1,1}
+  debugStart = true
+  doBiasedStart = true
   --Config Options:
   config = {}
   config.longRangeStrategic = false -- in
   config.allowSetAfterEnemyDefeat = false -- in
   config.giveAllUnitsOnSetTerritories = false -- in
   config.reshuffleCardsOnDeckEmpty = false
-  
   boardMessages = {
     reinforce = "Select a territory to reinforce.",
     reinforceNeutral = "Select a neutral territory\nto reinforce.",
@@ -58,6 +70,14 @@ function onLoad()
   broadcastMessages = {
   
   }
+  phaseNames = {
+    PreGame = "Pre\nGame",
+    strategic = "Strategic\nMove",
+    setup = "Setup",
+    tradeInSet = "Trade\nIn Set",
+    reinforce = "Reinforce",
+    attack = "Attack",
+  }
   drawZone = getObjectFromGUID("9e0b1f")
   discardZone = getObjectFromGUID("972ddb")
   controllerBoard = getObjectFromGUID("df4b6c")
@@ -73,15 +93,7 @@ function onLoad()
   self.interactable = false
   horse.interactable = false
   configMenu.interactable = false
-  if debugStart ~= true then
-    diceAttack.interactable = false
-    diceDefend.interactable = false
-    deck.interactable = false
-    controllerBoard.interactable = false
-  end
-  
   --Game Core
-  tColor = {1,1,1}
   contReference = {
     alaska = "nAmerica",
     northwestterritory = "nAmerica",
@@ -153,12 +165,14 @@ function onLoad()
   pList = {}
   territoryCount = {}
   -- holder variables
-  phase = "test"
+  phase = "PreGame"
   phaseOption = "none"
   currentTurn = "none"
   selected = " "
   selectedSecondary = " "
   unitsLeft = {}
+  territoryOwners = {}
+  territoryUnitCounts = {}
   reinforced = {}
   reinforced.amount = 0
   reinforced.amountLeft = 0
@@ -167,6 +181,8 @@ function onLoad()
   reinforced.self = false
   attackAmount = 0
   defendAmount = 0
+  attackRolls = {}
+  defendRolls = {}
   tookTerritory = false
   amountMustMove = 0
   isLastCard = false
@@ -214,20 +230,83 @@ function onLoad()
     contLabels[k] = continents[v][k].button.label
   end
   createTerritoryButtons()
-  self.createButton(startButton)
-  --setup turn clocks
-  for k,v in pairs(pColors) do
-    if v[4] ~= nil then
-      v[4].Clock.startStopwatch()
-      v[4].Clock.pauseStart()
-      v[4].interactable = false
-    end
-    if v[3] ~= nil then
-      v[3].interactable = false
+  
+  
+  loadedSave = false
+  if save_state ~= nil then
+    st("Found Save Data!")
+    if loadFromSave(save_state) then
+      loadedSave = true
     end
   end
+--START LOADING DATA
+  if loadedSave then
+    st("Successfully Loaded from Save!")
+  else
+  --START NEW GAME STUFF
+    st("Could Not Load From Save!")
+    self.createButton(startButton)
+    --setup turn clocks
+    for k,v in pairs(pColors) do
+      if v[4] ~= nil then
+        v[4].Clock.startStopwatch()
+        v[4].Clock.pauseStart()
+        v[4].interactable = false
+      end
+      if v[3] ~= nil then
+        v[3].interactable = false
+      end
+    end
+  end
+--STUFF TO DO EITHER WAY
+  if debugStart ~= true then
+    diceAttack.interactable = false
+    diceDefend.interactable = false
+    deck.interactable = false
+    controllerBoard.interactable = false
+  end
+  Global.call('objectLoadFinished',{self.guid})
 end
-      
+
+function onSave()
+  local save_data = {
+    debugStart = debugStart,
+    doBiasedStart = doBiasedStart,
+    config = config,
+    deck = deck.guid,
+    territoryOwners = territoryOwners,
+    territoryUnitCounts = territoryUnitCounts,
+    pList = pList,
+    territoryCount = territoryCount,
+    phase = phase,
+    phaseOption = phaseOption,
+    currentTurn = currentTurn,
+    selected = selected,
+    selectedSecondary = selectedSecondary,
+    unitsLeft = unitsLeft,
+    reinforced = reinforced,
+    attackAmount = attackAmount,
+    defendAmount = defendAmount,
+    tookTerritory = tookTerritory,
+    amountMustMove = amountMustMove,
+    isLastCard = isLastCard,
+    lastCard = lastCard,
+    specialReinforce = specialReinforce,
+    setsTurnedIn = setsTurnedIn,
+    setMatches = setMatches,
+    setMatchThisTurn = setMatchThisTurn,
+    diceDataDefender = diceDefend.call('getSaveData',{}),
+    diceDataAttacker = diceAttack.call('getSaveData',{}),
+    defendAmount = defendAmount,
+    defendRolls = defendRolls,
+    attackAmount = attackAmount,
+    attackRolls = attackRolls,
+    
+  }
+  local serialized_data = JSON.encode_pretty(save_data)
+  return serialized_data
+end
+
 function createTerritoryButtons()
   for i,c in pairs(continents) do
     for j,t in pairs(c) do
@@ -237,6 +316,123 @@ function createTerritoryButtons()
   end
 end
 
+function loadFromSave(save_state)
+  local data = JSON.decode(save_state)
+  --print("debugStart: " .. tostring(data.debugStart))
+  --print(save_state)
+  addNotebookTab({title = "Debug", body = save_state})
+  if save_state == "" then
+    return false
+  end
+  if data.phase == "PreGame" or data.phase == nil then
+    return false
+  end
+  debugStart = data.debugStart
+  doBiasedStart = data.doBiasedStart
+  config = data.config
+  deck = getObjectFromGUID(data.deck)
+  territoryOwners = data.territoryOwners
+  territoryUnitCounts = data.territoryUnitCounts
+  pList = data.pList
+  territoryCount = data.territoryCount
+  phase = data.phase
+  phaseOption = data.phaseOption
+  currentTurn = data.currentTurn
+  selected = data.selected
+  selectedSecondary = data.selectedSecondary
+  unitsLeft = data.unitsLeft
+  reinforced = data.reinforced
+  attackAmount = data.attackAmount
+  defendAmount = data.defendAmount
+  tookTerritory = data.tookTerritory
+  amountMustMove = data.amountMustMove
+  isLastCard = data.isLastCard
+  lastCard = data.lastCard
+  specialReinforce = data.specialReinforce
+  setsTurnedIn = data.setsTurnedIn
+  setMatches = data.setMatches
+  setMatchThisTurn = data.setMatchThisTurn
+  
+  diceAttack.call("loadSaveData",{data.diceDataAttacker})
+  diceDefend.call("loadSaveData",{data.diceDataDefender})
+  for k,v in pairs(contReference) do
+    --st(k .. " " .. v)
+    continents[v][k].button.label = territoryUnitCounts[k]
+    continents[v][k].button.color = pColors[territoryOwners[k]][1]
+    continents[v][k].button.text_color = pColors[territoryOwners[k]][2]
+    continents[v][k].button.scale = {x= 0.5, y = 1.0, z = 0.5}
+    self.editButton(continents[v][k].button)
+  end
+  
+  st("Loaded Successfully From Save!")
+  return true
+end
+function finishedLoading()
+  if loadedSave ~= true then
+    return
+  end
+  --printToAll("currentTurn: " ..  tostring(currentTurn) )
+  controllerBoard.call('updateTurn',{currentTurn})
+  controllerBoard.call('updatePhase',{phaseNames[phase]})
+  refreshPlacementNumbers()
+  setSelected(selected)
+  setSelected(selectedSecondary,true)
+  
+-- Phase specific updates  
+  if phase == "setup" then
+    if phaseOption == "selectOwnTerritory" then
+      updateInfo("reinforce")
+    elseif phaseOption == "selectNeutralTerritory" then
+      updateInfo("reinforceNeutral")
+    elseif phaseOption == "gettingOwnAmount" then
+      updateInfo("amountToPlace")
+    elseif phaseOption == "gettingNeutralAmount" then
+      updateInfo("amountToPlace")
+    end
+    return
+  
+  elseif phase == "tradeInSet" then
+    setupTurnInSet(true)
+    
+  elseif phase == "reinforce" then
+    if phaseOption == "selectOwnTerritory" then
+      updateInfo("reinforce")
+    end
+    
+  elseif phase == "attack" then
+    if phaseOption == "selectAttackFromLocation" then
+      setupAttack()
+    elseif phaseOption == "selectAttackToLocation" then
+    elseif phaseOption == "getDiceRolls" then
+      if attackAmount > 0 then
+      
+      end
+    
+    end
+      
+    
+  elseif phase == "strategic" then
+    
+  end
+  --[[
+  selectOwnTerritory
+  none
+  gettingOwnAmount
+  gettingNeutralAmount
+  selectNeutralTerritory
+  selectAttackToLocation
+  selectAttackFromLocation
+  strategicSelectTo
+  strategicSelectFrom
+  strategicSelectAmount
+  selectAmountToMove
+  getSpecialSetSelect
+  askAttackAgain
+  tradeInSet
+  getDiceRolls
+  
+  ]]--
+end
 --------------------------
 -- CONTROL FUNCTIONS --
 --------------------------
@@ -247,7 +443,7 @@ function territoryClicked(territory,color)
     broadcastToColor("It is not your turn.",color,pColor(color))
     return
   end
-  if phase == "none" then
+  if phase == "PreGame" then
     broadcastToColor("Cannot do that. The game has not been started.",color,pColor(color))
     return
   end  
@@ -738,6 +934,7 @@ function getDiceRolls(params)
               phase = "gameOver"
               controllerBoard.call('updatePhase',{"Game\nOver"})
               updateInfo("win")
+              playClock(currentTurn,false)
               --controllerBoard.call('updateConfirm',{"YES"})
               return
             end
@@ -753,6 +950,8 @@ function getDiceRolls(params)
         tookTerritory = true
         defendAmount = 0
         attackAmount = 0
+        attackRolls = {}
+        defendRolls = {}
         return
       end
     end
@@ -766,6 +965,8 @@ function getDiceRolls(params)
       controllerBoard.call('updateConfirm',{"Confirm"})
       defendAmount = 0
       attackAmount = 0
+      attackRolls = {}
+      defendRolls = {}
       return
     end
     phaseOption = "askAttackAgain"
@@ -775,6 +976,8 @@ function getDiceRolls(params)
     diceAttack.call('showAttackAgain',{true,currentTurn})
     defendAmount = 0
     attackAmount = 0
+    attackRolls = {}
+    defendRolls = {}
   end
 end
 
@@ -797,6 +1000,16 @@ end
 function setupTerritories()
 --count players and get colour and set starting unit count
   pList = getSeatedPlayers()
+  for i,v in pairs(pList) do
+    if (not pColors[v]) or v == "Yellow" then
+      broadcastToAll("A player cannot be seated in color " .. v)
+      return false
+    end
+    if debugStart and v == "Pink" then
+      broadcastToAll("A player cannot be seated in color " .. v)
+      return false
+    end
+  end
   if debugStart then
     table.insert(pList,"Pink")
   end
@@ -992,30 +1205,36 @@ function setupDiceRoll()
       defendingPlayer = pList[1]
     end
   end
-  playClock(defendingPlayer,true)
+  
+  if attackAmount == 0 then
+    local attMax = 0
+    local attCount = getUnitAmount(selected)
+    if attCount >= 4 then
+      attMax = 3
+    else
+      attMax = attCount - 1
+    end
+    diceAttack.call('diceAmount',{attMax,getOwner(selected)})
+    broadcastToColor("Roll the dice to attack " .. tLabel(selectedSecondary) .. ".",currentTurn,pColor())
+  end
+  if defendAmount == 0 then 
+    local defMax = 0
+    local defCount = getUnitAmount(selectedSecondary)
+    if defCount >= 2 then
+      defMax = 2
+    else
+      defMax = defCount
+    end
+    if reinforced.usingNeutral then
+      diceDefend.call('diceAmount',{defMax,defendingPlayer})
+    else
+      diceDefend.call('diceAmount',{defMax,getOwner(selectedSecondary)})
+    end
+    broadcastToColor("Roll the dice to defend " .. tLabel(selectedSecondary) .. ".",defendingPlayer,pColor(defendingPlayer))
+    playClock(defendingPlayer,true)
+  end
+  
   phaseOption = "getDiceRolls"
-  broadcastToColor("Roll the dice to attack " .. tLabel(selectedSecondary) .. ".",currentTurn,pColor())
-  broadcastToColor("Roll the dice to defend " .. tLabel(selectedSecondary) .. ".",defendingPlayer,pColor(defendingPlayer))
-  local attMax = 0
-  local defMax = 0
-  local defCount = getUnitAmount(selectedSecondary)
-  local attCount = getUnitAmount(selected)
-  if attCount >= 4 then
-    attMax = 3
-  else
-    attMax = attCount - 1
-  end
-  if defCount >= 2 then
-    defMax = 2
-  else
-    defMax = defCount
-  end
-  diceAttack.call('diceAmount',{attMax,getOwner(selected)})
-  if reinforced.usingNeutral then
-    diceDefend.call('diceAmount',{defMax,defendingPlayer})
-  else
-    diceDefend.call('diceAmount',{defMax,getOwner(selectedSecondary)})
-  end
   updateInfo("roll")
 end
 
@@ -1133,12 +1352,12 @@ function checkForContinents()
   end  
 end
 
-function setSelected(sel,second)
+function setSelected(sel,isSecond)
   local _owner = "Grey"
   if sel ~= "" and sel ~= " " then
     _owner = getOwner(sel)
   end
-  if second then
+  if isSecond then
     selectedSecondary = sel
     controllerBoard.call('updateTerritoryTwo',{tLabel(sel),_owner})
   else
@@ -1316,11 +1535,11 @@ function st(t)
 end
 function updateTroopCount(territory,amount)
   continents[contReference[territory]][territory].button.label = amount
-  continents[contReference[territory]][territory].units = amount
+  territoryUnitCounts[territory] = amount
   self.editButton(continents[contReference[territory]][territory].button)
 end
 function updateOwner(territory,owner)
-  continents[contReference[territory]][territory].owner = owner
+  territoryOwners[territory] = owner
   continents[contReference[territory]][territory].button.color = pColors[owner][1]
   continents[contReference[territory]][territory].button.font_color = pColors[owner][2]
   self.editButton(continents[contReference[territory]][territory].button)
@@ -1343,10 +1562,10 @@ function getNextTurn()
   return pList[_t]      
 end
 function getOwner(territory)
-  return continents[contReference[territory]][territory].owner
+  return territoryOwners[territory]
 end
 function getUnitAmount(territory)
-  return continents[contReference[territory]][territory].units
+  return territoryUnitCounts[territory]
 end
 function getBorders(territory)
   return continents[contReference[territory]][territory].borders
