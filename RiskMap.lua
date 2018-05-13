@@ -779,6 +779,10 @@ function getDiceRolls(params)
 end
 
 function attackAgain(params)
+  if params[2] ~= currentTurn then
+    broadcastToColor("You cannot do that.",params[2],pColor(params[2]))
+    return
+  end
   diceAttack.call('showAttackAgain',{false})
   if params[1] then
     setupDiceRoll()

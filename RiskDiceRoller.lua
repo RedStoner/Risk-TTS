@@ -63,8 +63,8 @@ function onUpdate()
     doneRoll()
   end
 end
-function repeatNo(o,c) map.call('attackAgain',{false}) end
-function repeatYes(o,c) map.call('attackAgain',{true}) end
+function repeatNo(o,c) map.call('attackAgain',{false,c}) end
+function repeatYes(o,c) map.call('attackAgain',{true,c}) end
 function rollDice1(o,c) rollDice(1,c) end
 function rollDice2(o,c) rollDice(2,c) end
 function rollDice3(o,c) rollDice(3,c) end
