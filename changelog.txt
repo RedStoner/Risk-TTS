@@ -1,0 +1,12 @@
+Change Log
+1.1 - Saves Update
+  Added - 
+    Games can now be saved!
+      As there are alot of states the game can be in when saving, so I may have missed a few button updates. These issues will simply
+        graphical issues. The game will still continue correctly as all crucial values ARE being stored. But please do let me know about
+        these issues on the issue tracker.
+  Fixes -
+    Attack Again button giving a minor error about not having a function it can call.
+    Player's clock continued to tick after game over.
+    Error when a player is seated in a color that is not assigned to the table.
+    Incorrect players able to click attack again buttons on the dice roller boxes.
