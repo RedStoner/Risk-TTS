@@ -77,6 +77,7 @@ function loadSaveData(d)
   showAttackAgain({data.attackAgain,currentUser})
   --update the amount to roll buttons
   for i=1,#data.buttonStates do
+    broadcastToAll("State for button " .. i .. " is " .. toString(data.buttonStates[i]),tColor)
     if data.buttonStates[i]  then
       buttons[i+3].color = pColors[currentUser]
       buttons[i+3].font_color = tColors[currentUser]

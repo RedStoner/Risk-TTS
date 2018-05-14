@@ -185,7 +185,7 @@ function onLoad(save_state)
     scale = {x = 0.5, y = 1, z = 0.5}, width = 700, height = 120, font_size = 100,
     color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}
     }
-  
+  tempDiceData = {}
   contLabels = {}
   for k,v in pairs(contReference) do
     contLabels[k] = continents[v][k].button.label
@@ -313,9 +313,7 @@ function loadFromSave(save_state)
   setsTurnedIn = data.setsTurnedIn
   setMatches = data.setMatches
   setMatchThisTurn = data.setMatchThisTurn
-  
-  diceAttack.call("loadSaveData",{data.diceDataAttacker})
-  diceDefend.call("loadSaveData",{data.diceDataDefender})
+  tempDiceData = {data.diceDataAttacker, data.diceDataDefender}
   for k,v in pairs(contReference) do
     --st(k .. " " .. v)
     continents[v][k].button.label = territoryUnitCounts[k]
@@ -338,42 +336,32 @@ function finishedLoading()
   refreshPlacementNumbers()
   setSelected(selected)
   setSelected(selectedSecondary,true)
-  
+  diceAttack.call("loadSaveData",{tempDiceData[1]})
+  diceDefend.call("loadSaveData",{tempDiceData[2]})
 -- Phase specific updates  
-  if phase == "setup" then
-    if phaseOption == "selectOwnTerritory" then
-      updateInfo("reinforce")
-    elseif phaseOption == "selectNeutralTerritory" then
-      updateInfo("reinforceNeutral")
-    elseif phaseOption == "gettingOwnAmount" then
-      updateInfo("amountToPlace")
-    elseif phaseOption == "gettingNeutralAmount" then
-      updateInfo("amountToPlace")
-    end
-    return
-  
-  elseif phase == "tradeInSet" then
+  if phase == "tradeInSet" then
     setupTurnInSet(true)
-    
-  elseif phase == "reinforce" then
-    if phaseOption == "selectOwnTerritory" then
-      updateInfo("reinforce")
-    end
-    
-  elseif phase == "attack" then
-    if phaseOption == "selectAttackFromLocation" then
-      setupAttack()
-    elseif phaseOption == "selectAttackToLocation" then
-    elseif phaseOption == "getDiceRolls" then
-      if attackAmount > 0 then
-      
-      end
-    
-    end
-      
-    
+    return
+  elseif phaseOption == "selectOwnTerritory" then
+    updateInfo("reinforce")
+    return
+  elseif phaseOption == "selectNeutralTerritory" then
+    updateInfo("reinforceNeutral")
+    return
+  elseif phaseOption == "gettingOwnAmount" or phaseOption == "gettingNeutralAmount" then
+    updateInfo("amountToPlace")
+    return
+  elseif phaseOption == "selectAttackFromLocation" then
+    setupAttack()
+    return
+  elseif phaseOption == "selectAttackToLocation" then
+    updateInfo("attackTo")
+    return
+  elseif phaseOption == "getDiceRolls" then
+    updateInfo("roll")
+    return
   elseif phase == "strategic" then
-    
+    return
   end
   --[[
   selectOwnTerritory
