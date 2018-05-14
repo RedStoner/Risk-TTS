@@ -142,6 +142,8 @@ function onLoad(save_state)
   reinforced.self = false
   attackAmount = 0
   defendAmount = 0
+  attMax = 0
+  defMax = 0
   attackRolls = {}
   defendRolls = {}
   tookTerritory = false
@@ -248,6 +250,8 @@ function onSave()
     reinforced = reinforced,
     attackAmount = attackAmount,
     defendAmount = defendAmount,
+    attMax = attMax,
+    defMax = defMax,
     tookTerritory = tookTerritory,
     amountMustMove = amountMustMove,
     isLastCard = isLastCard,
@@ -305,6 +309,8 @@ function loadFromSave(save_state)
   reinforced = data.reinforced
   attackAmount = data.attackAmount
   defendAmount = data.defendAmount
+  defMax = data.defMax
+  attMax = attMax
   tookTerritory = data.tookTerritory
   amountMustMove = data.amountMustMove
   isLastCard = data.isLastCard
