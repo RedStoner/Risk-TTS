@@ -310,7 +310,7 @@ function loadFromSave(save_state)
   attackAmount = data.attackAmount
   defendAmount = data.defendAmount
   defMax = data.defMax
-  attMax = attMax
+  attMax = data.attMax
   tookTerritory = data.tookTerritory
   amountMustMove = data.amountMustMove
   isLastCard = data.isLastCard
