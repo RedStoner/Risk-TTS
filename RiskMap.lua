@@ -252,6 +252,8 @@ function onSave()
     defendAmount = defendAmount,
     attMax = attMax,
     defMax = defMax,
+    attackRolls = attackRolls,
+    defendRolls = defendRolls,
     tookTerritory = tookTerritory,
     amountMustMove = amountMustMove,
     isLastCard = isLastCard,
@@ -311,6 +313,8 @@ function loadFromSave(save_state)
   defendAmount = data.defendAmount
   defMax = data.defMax
   attMax = data.attMax
+  attackRolls = data.attackRolls
+  defendRolls = data.defendRolls
   tookTerritory = data.tookTerritory
   amountMustMove = data.amountMustMove
   isLastCard = data.isLastCard
@@ -363,10 +367,26 @@ function finishedLoading()
   elseif phaseOption == "selectAttackToLocation" then
     updateInfo("attackTo")
     return
+  elseif phaseOption == "selectAmountToMove" then
+    updateInfo("amountToMove")
+    return
   elseif phaseOption == "getDiceRolls" then
     updateInfo("roll")
     return
-  elseif phase == "strategic" then
+  elseif phaseOption == "askAttackAgain" then
+    updateInfo("repeatAttack")
+    controllerBoard.call('updateEndPhase',{"NO"})
+    controllerBoard.call('updateConfirm',{"YES"})
+    diceAttack.call('showAttackAgain',{true,currentTurn})
+    return
+  elseif phaseOption == "strategicSelectTo" then
+    updateInfo("moveTo")
+    return
+  elseif phaseOption == "strategicSelectFrom" then
+    updateInfo("moveFrom")
+    return
+  elseif phaseOption == "strategicSelectAmount" then
+    updateInfo("amountToMove")
     return
   end
   --[[

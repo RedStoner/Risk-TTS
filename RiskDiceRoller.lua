@@ -68,8 +68,8 @@ function getSaveData()
   return data
 end
 function loadSaveData(d)
-  --addNotebookTab({title = "roller", body = JSON.encode_pretty(data)})
   data = d[1]
+  addNotebookTab({title = "roller", body = JSON.encode_pretty(data)})
   currentUser = data.currentUser
   trackedDice = data.trackedDice
   startedRolling = data.startedRolling
@@ -77,7 +77,7 @@ function loadSaveData(d)
   showAttackAgain({data.attackAgain,currentUser})
   --update the amount to roll buttons
   for i=1,#data.buttonStates do
-    broadcastToAll("State for button " .. i .. " is " .. toString(data.buttonStates[i]),tColor)
+    broadcastToAll("State for button " .. i .. " is " .. tostring(data.buttonStates[i]),tColor)
     if data.buttonStates[i]  then
       buttons[i+3].color = pColors[currentUser]
       buttons[i+3].font_color = tColors[currentUser]
@@ -87,7 +87,7 @@ function loadSaveData(d)
       buttons[i+3].font_color = pColors["Grey"]
       buttons[i+3].on = false
     end
-    self.editButton(buttons[i])
+    self.editButton(buttons[i+3])
   end
 end
 function onUpdate()
