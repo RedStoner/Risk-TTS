@@ -62,14 +62,13 @@ function getSaveData()
   }
   
   for i=1, #buttons - 3 do
-    --print("Button state for " .. i+3 .. " is " .. tostring(buttons[i+3].on) )
     data.buttonStates[i] = buttons[i+3].on
   end
   return data
 end
 function loadSaveData(d)
   data = d[1]
-  addNotebookTab({title = "roller", body = JSON.encode_pretty(data)})
+  --addNotebookTab({title = "roller", body = JSON.encode_pretty(data)})
   currentUser = data.currentUser
   trackedDice = data.trackedDice
   startedRolling = data.startedRolling
@@ -77,7 +76,6 @@ function loadSaveData(d)
   showAttackAgain({data.attackAgain,currentUser})
   --update the amount to roll buttons
   for i=1,#data.buttonStates do
-    broadcastToAll("State for button " .. i .. " is " .. tostring(data.buttonStates[i]),tColor)
     if data.buttonStates[i]  then
       buttons[i+3].color = pColors[currentUser]
       buttons[i+3].font_color = tColors[currentUser]
@@ -95,7 +93,6 @@ function onUpdate()
     for k,v in pairs(trackedDice) do
       local obj = getObjectFromGUID(v)
       if obj.resting ~= true then
-        --broadcastToColor("Dice are still moving. ",c,tColor)
         return
       end
     end
@@ -140,12 +137,10 @@ function doneRoll(b,c)
   local values = {}
   for k,v in pairs(trackedDice) do
     local obj = getObjectFromGUID(v)
-    --str = str .. obj.getValue() .. " "
     table.insert(values,obj.getValue())
     obj.destruct()
   end
   table.sort(values,function(a,b) return a > b end)
-  --str = str .. "   Sorted - "
   for k,v in ipairs(values) do
     str = str .. v .. " "
   end

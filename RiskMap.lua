@@ -8,14 +8,14 @@ function onLoad(save_state)
   doBiasedStart = true
   --Config Options:
   config = {}
-  config.longRangeStrategic = false -- in
-  config.allowSetAfterEnemyDefeat = false -- in
-  config.giveAllUnitsOnSetTerritories = false -- in
+  config.longRangeStrategic = false
+  config.allowSetAfterEnemyDefeat = false
+  config.giveAllUnitsOnSetTerritories = false
   config.reshuffleCardsOnDeckEmpty = false
   boardMessages = {
     reinforce = "Select a territory to reinforce.",
     reinforceNeutral = "Select a neutral territory\nto reinforce.",
-    amountToPlace = "Select amount of units to place. ",-- .. tLabel(selected) .. "."
+    amountToPlace = "Select amount of units to place. ",
     amountToMove = "Select amount of units to move.",
     attackFrom = "Select a target to attack from\nor press 'End Phase'.",
     attackTo = "Select where to attack to.",
@@ -155,7 +155,6 @@ function onLoad(save_state)
   setsTurnedIn = 0
   setMatches = {}
   setMatchThisTurn = false
-  --horse y= 0.98 z= 23.03
   horseLoc = {
     -39.48,
     -36.46,
@@ -285,9 +284,9 @@ end
 
 function loadFromSave(save_state)
   local data = JSON.decode(save_state)
-  --print("debugStart: " .. tostring(data.debugStart))
-  --print(save_state)
-  addNotebookTab({title = "Debug", body = save_state})
+  if debugStart then
+    addNotebookTab({title = "Debug", body = save_state})
+  end
   if save_state == "" then
     return false
   end
@@ -325,7 +324,6 @@ function loadFromSave(save_state)
   setMatchThisTurn = data.setMatchThisTurn
   tempDiceData = {data.diceDataAttacker, data.diceDataDefender}
   for k,v in pairs(contReference) do
-    --st(k .. " " .. v)
     continents[v][k].button.label = territoryUnitCounts[k]
     continents[v][k].button.color = pColors[territoryOwners[k]][1]
     continents[v][k].button.text_color = pColors[territoryOwners[k]][2]
@@ -340,7 +338,7 @@ function finishedLoading()
   if loadedSave ~= true then
     return
   end
-  --printToAll("currentTurn: " ..  tostring(currentTurn) )
+  --update general controller board numbers
   controllerBoard.call('updateTurn',{currentTurn})
   controllerBoard.call('updatePhase',{phaseNames[phase]})
   refreshPlacementNumbers()
@@ -389,31 +387,12 @@ function finishedLoading()
     updateInfo("amountToMove")
     return
   end
-  --[[
-  selectOwnTerritory
-  none
-  gettingOwnAmount
-  gettingNeutralAmount
-  selectNeutralTerritory
-  selectAttackToLocation
-  selectAttackFromLocation
-  strategicSelectTo
-  strategicSelectFrom
-  strategicSelectAmount
-  selectAmountToMove
-  getSpecialSetSelect
-  askAttackAgain
-  tradeInSet
-  getDiceRolls
-  
-  ]]--
 end
 --------------------------
 -- CONTROL FUNCTIONS --
 --------------------------
  
 function territoryClicked(territory,color)
-  --st("Phase = " .. phase .. " phaseOption = " .. phaseOption)
   if color ~= currentTurn then
     broadcastToColor("It is not your turn.",color,pColor(color))
     return
@@ -694,7 +673,6 @@ function controlClicked(params)
                 end
                 refreshPlacementNumbers()
                 phaseOption = "selectOwnTerritory"
-                --controllerBoard.call('updateTurn',{currentTurn})
                 if unitsLeft[currentTurn] <= 0 then
                   setupTurnInSet()
                 else
@@ -717,7 +695,6 @@ function controlClicked(params)
                 end
                 refreshPlacementNumbers()
                 phaseOption = "selectOwnTerritory"
-                --controllerBoard.call('updateTurn',{currentTurn})
                 if unitsLeft[currentTurn] <= 0 then
                   setupTurnInSet()
                 else
@@ -1065,7 +1042,6 @@ function setupTerritories()
     currentTurn = pList[rand]
   end
   broadcastToAll(currentTurn .. " gets first placement.",pColor())
-  --controllerBoard.call('updateTurn',{currentTurn})
 --players from 1st to last add  to a territory clockwise until  number for the game
   if neutralPlayer > 0 then
     reinforced.amount = 2
@@ -1214,7 +1190,7 @@ function setupDiceRoll()
 end
 
 function setupStrategic()
-  phaseOption = "strategicSelectFrom" -- create phase for this
+  phaseOption = "strategicSelectFrom"
   broadcastToColor("Select a territory to make a strategic move from with or click End Phase.",currentTurn,pColor())
   updateInfo("moveFrom")
 end
@@ -1267,7 +1243,6 @@ function setupEndTurn()
   playClock(currentTurn,false)
   currentTurn = getNextTurn()
   setMatchThisTurn = false
-  --controllerBoard.call('updateTurn',{currentTurn})
   setupTurnInSet()
   playClock(currentTurn,true)
   updateTerritoryCount(currentTurn)
@@ -1310,12 +1285,10 @@ end
 function checkForContinents()
   for contKey, cont in pairs(continents) do
     -- Check each continent and break out if a territory is found they dont owned
-    --st("Checking Continent - " .. contKey)
     local passed = true
     for tKey, terr in pairs(cont) do
       if getOwner(tKey) ~= currentTurn then
         passed = false
-        --st("Does NOT control " .. tKey)
         break
       end
     end
@@ -1532,8 +1505,6 @@ function getNextTurn()
   else 
     _t = _t + 1
   end
-  --st("Next Turn Index: " .. _t  )
-  --st(" Value: " .. pList[_t])
   return pList[_t]      
 end
 function getOwner(territory)
