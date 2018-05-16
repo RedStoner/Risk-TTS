@@ -47,7 +47,7 @@ function strategicConfig(o,c)
   self.editButton(buttonsOutline[1]) 
   self.editButton(buttons[1])
 end
-
+ 
 function setTradeConfig(o,c)
   if gameStarted then
     return
@@ -100,6 +100,14 @@ function getConfigValues()
   info.reshuffleCardsOnDeckEmpty = buttons[4].value
   return info
 end
+
+function loadSaveData(config)
+  if config.longRangeStrategic then strategicConfig() end
+  if config.allowSetAfterEnemyDefeat then setTradeConfig() end
+  if config.giveAllUnitsOnSetTerritories then setTerritoryConfig() end
+  if config.reshuffleCardsOnDeckEmpty then reshuffleConfig() end
+end
+
 function toggleConfigButtons()
   if gameStarted then
     gameStarted = false

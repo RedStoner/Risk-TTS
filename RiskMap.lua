@@ -334,6 +334,7 @@ function loadFromSave(save_state)
   st("Loaded Successfully From Save!")
   return true
 end
+
 function finishedLoading()
   if loadedSave ~= true then
     return
@@ -344,8 +345,11 @@ function finishedLoading()
   refreshPlacementNumbers()
   setSelected(selected)
   setSelected(selectedSecondary,true)
+  -- update dice boxes
   diceAttack.call("loadSaveData",{tempDiceData[1]})
   diceDefend.call("loadSaveData",{tempDiceData[2]})
+  -- update config buttons
+  configMenu.call("loadSaveData",{config})
 -- Phase specific updates  
   if phase == "tradeInSet" then
     setupTurnInSet(true)
