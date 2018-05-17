@@ -101,7 +101,6 @@ function onLoad(save_state)
     }
   
   continents = newContinentData()
-  
   pColors = {
   White = {{1,1,1},{0.25, 0.25, 0.25, 1}, getObjectFromGUID("a020ef"), getObjectFromGUID("e8afd4")},
   --Brown = {{0.443, 0.231, 0.09},{0.25, 0.25, 0.25, 1}, getObjectFromGUID("")},
@@ -1322,7 +1321,15 @@ function playClock(player,active)
   pColors[player][4].Clock.pauseStart()
 end
 
-
+function isWaterAttack(fromLoc,toLoc)
+  local _data = continents[contReference[fromLoc]][fromLoc]
+  for k,v in pairs(_data.borders) do
+    if toLoc == v then
+      return _data.byWater[k]
+    end
+  end
+  return false
+end
 function updateTerritoryCount(player)
   pColors[player][3].setValue(territoryCount[player])
 end
@@ -1545,6 +1552,7 @@ function newContinentData()
     nAmerica = {
       alaska = {
         borders = {"northwestterritory","alberta","kamchatka"},
+        byWater = {false,false,true},
         owner = "test",
         units = 0,
         buttonindex = 0,
@@ -1557,6 +1565,7 @@ function newContinentData()
         },
       northwestterritory = {
         borders = {"alaska","alberta","ontario","greenland"},
+        byWater = {false,false,false,true},
         owner = nil,
         units = 0,
         buttonindex = 1,
@@ -1569,6 +1578,7 @@ function newContinentData()
         },
       greenland = {
         borders = {"northwestterritory","ontario","quebec","iceland"},
+        byWater = {true,true,true,true},
         owner = nil,
         units = 0,
         buttonindex = 2,
@@ -1581,6 +1591,7 @@ function newContinentData()
         },
       alberta = {
         borders = {"alaska","northwestterritory","ontario","westernunitedstates"},
+        byWater = {false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 3,
@@ -1593,6 +1604,7 @@ function newContinentData()
         },
       ontario = {
         borders = {"northwestterritory","alberta","westernunitedstates","easternunitedstates","quebec","greenland"},
+        byWater = {false,false,false,false,false,true},
         owner = nil,
         units = 0,
         buttonindex = 4,
@@ -1604,6 +1616,7 @@ function newContinentData()
         },
       quebec = {
         borders = {"ontario","easternunitedstates","greenland"},
+        byWater = {false,false,true},
         owner = nil,
         units = 0,
         buttonindex = 5,
@@ -1615,6 +1628,7 @@ function newContinentData()
         },
       westernunitedstates = {
         borders = {"alberta","ontario","easternunitedstates","centralamerica"},
+        byWater = {false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 6,
@@ -1626,6 +1640,7 @@ function newContinentData()
         },
       easternunitedstates = {
         borders = {"ontario","quebec","westernunitedstates","centralamerica"},
+        byWater = {false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 7,
@@ -1637,6 +1652,7 @@ function newContinentData()
         },
       centralamerica = {
         borders = {"westernunitedstates","easternunitedstates","venezuela"},
+        byWater = {false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 8,
@@ -1650,6 +1666,7 @@ function newContinentData()
     sAmerica = {
       venezuela = {
         borders = {"centralamerica","peru","brazil"},
+        byWater = {false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 9,
@@ -1661,6 +1678,7 @@ function newContinentData()
         },
       peru = {
         borders = {"venezuela","brazil","argentina"},
+        byWater = {false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 10,
@@ -1672,6 +1690,7 @@ function newContinentData()
         },
       brazil = {
         borders = {"venezuela","peru","argentina","northafrica"},
+        byWater = {false,false,false,true},
         owner = nil,
         units = 0,
         buttonindex = 11,
@@ -1683,6 +1702,7 @@ function newContinentData()
         },
       argentina = {
         borders = {"peru","brazil"},
+        byWater = {false,false},
         owner = nil,
         units = 0,
         buttonindex = 12,
@@ -1696,6 +1716,7 @@ function newContinentData()
     europe = {
       iceland = {
         borders = {"greenland","scandinavia","greatbritain"},
+        byWater = {true,true,true},
         owner = nil,
         units = 0,
         buttonindex = 13,
@@ -1707,6 +1728,7 @@ function newContinentData()
         },
       scandinavia = {
         borders = {"iceland","ukrane","greatbritain","northerneurope"},
+        byWater = {true,false,true,false},
         owner = nil,
         units = 0,
         buttonindex = 14,
@@ -1718,6 +1740,7 @@ function newContinentData()
         },
       ukrane = {
         borders = {"scandinavia","northerneurope","southerneurope","middleeast","afghanistan","ural"},
+        byWater = {false,false,false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 15,
@@ -1729,6 +1752,7 @@ function newContinentData()
         },
       greatbritain = {
         borders = {"iceland","scandinavia","northerneurope","westerneurope"},
+        byWater = {true,true,true,true},
         owner = nil,
         units = 0,
         buttonindex = 16,
@@ -1740,6 +1764,7 @@ function newContinentData()
         },
       northerneurope = {
         borders = {"greatbritain","westerneurope","southerneurope","ukrane","scandinavia"},
+        byWater = {true,false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 17,
@@ -1751,6 +1776,7 @@ function newContinentData()
         },
       westerneurope = {
         borders = {"greatbritain","northafrica","southerneurope","northerneurope"},
+        byWater = {true,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 18,
@@ -1762,6 +1788,7 @@ function newContinentData()
         },
       southerneurope = {
         borders = {"northerneurope","westerneurope","northafrica","egypt","middleeast","ukrane"},
+        byWater = {false,false,false,true,false,false},
         owner = nil,
         units = 0,
         buttonindex = 19,
@@ -1775,6 +1802,7 @@ function newContinentData()
     africa = {
       northafrica = {
         borders = {"westerneurope","brazil","congo","eastafrica","egypt","southerneurope"},
+        byWater = {false,true,false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 20,
@@ -1786,6 +1814,7 @@ function newContinentData()
         },
       egypt = {
         borders = {"southerneurope","northafrica","eastafrica","middleeast"},
+        byWater = {true,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 21,
@@ -1797,6 +1826,7 @@ function newContinentData()
         },
       eastafrica = {
         borders = {"egypt","northafrica","congo","southafrica","madagascar","middleeast"},
+        byWater = {false,false,false,false,true,true},
         owner = nil,
         units = 0,
         buttonindex = 22,
@@ -1808,6 +1838,7 @@ function newContinentData()
         },
       congo = {
         borders = {"northafrica","southafrica","eastafrica"},
+        byWater = {false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 23,
@@ -1819,6 +1850,7 @@ function newContinentData()
         },
       southafrica = {
         borders = {"congo","madagascar","eastafrica"},
+        byWater = {false,true,false},
         owner = nil,
         units = 0,
         buttonindex = 24,
@@ -1830,6 +1862,7 @@ function newContinentData()
         },
       madagascar = {
         borders = {"southafrica","eastafrica"},
+        byWater = {true,true},
         owner = nil,
         units = 0,
         buttonindex = 25,
@@ -1843,6 +1876,7 @@ function newContinentData()
     asia = {
       ural = {
         borders = {"ukrane","afghanistan","china","siberia"},
+        byWater = {false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 26,
@@ -1854,6 +1888,7 @@ function newContinentData()
         },
       siberia = {
         borders = {"ural","china","mongolia","irkutsk","yakutsk"},
+        byWater = {false,false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 27,
@@ -1865,6 +1900,7 @@ function newContinentData()
         },
       yakutsk = {
         borders = {"siberia","irkutsk","kamchatka"},
+        byWater = {false,false,false,},
         owner = nil,
         units = 0,
         buttonindex = 28,
@@ -1876,6 +1912,7 @@ function newContinentData()
         },
       kamchatka = {
         borders = {"yakutsk","irkutsk","mongolia","japan","alaska"},
+        byWater = {false,false,false,true,true},
         owner = nil,
         units = 0,
         buttonindex = 29,
@@ -1887,6 +1924,7 @@ function newContinentData()
         },
       irkutsk = {
         borders = {"yakutsk","siberia","mongolia","kamchatka","yakutsk"},
+        byWater = {false,false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 30,
@@ -1898,6 +1936,7 @@ function newContinentData()
         },
       mongolia = {
         borders = {"irkutsk","siberia","china","japan","kamchatka"},
+        byWater = {false,false,false,true,false},
         owner = nil,
         units = 0,
         buttonindex = 31,
@@ -1909,6 +1948,7 @@ function newContinentData()
         },
       afghanistan = {
         borders = {"ukrane","middleeast","india","china","ural"},
+        byWater = {false,false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 32,
@@ -1920,6 +1960,7 @@ function newContinentData()
         },
       japan = {
         borders = {"mongolia","kamchatka"},
+        byWater = {true,true},
         owner = nil,
         units = 0,
         buttonindex = 33,
@@ -1931,6 +1972,7 @@ function newContinentData()
         },
       china = {
         borders = {"siberia","ural","afghanistan","india","siam","mongolia"},
+        byWater = {false,false,false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 34,
@@ -1942,6 +1984,7 @@ function newContinentData()
         },
       middleeast = {
         borders = {"ukrane","southerneurope","egypt","eastafrica","india","afghanistan"},
+        byWater = {false,false,false,true,false,false},
         owner = nil,
         units = 0,
         buttonindex = 35,
@@ -1953,6 +1996,7 @@ function newContinentData()
         },
       india = {
         borders = {"afghanistan","middleeast","siam","china"},
+        byWater = {false,false,false,false},
         owner = nil,
         units = 0,
         buttonindex = 36,
@@ -1964,6 +2008,7 @@ function newContinentData()
         },
       siam = {
         borders = {"india","china","indonesia"},
+        byWater = {false,false,true},
         owner = nil,
         units = 0,
         buttonindex = 37,
@@ -1977,6 +2022,7 @@ function newContinentData()
     australia = {
       indonesia = {
         borders = {"siam","westernaustralia","newguinea"},
+        byWater = {true,true,true},
         owner = nil,
         units = 0,
         buttonindex = 38,
@@ -1988,6 +2034,7 @@ function newContinentData()
         },
       newguinea = {
         borders = {"indonesia","easternaustralia"},
+        byWater = {true,true},
         owner = nil,
         units = 0,
         buttonindex = 39,
@@ -1999,6 +2046,7 @@ function newContinentData()
         },
       westernaustralia = {
         borders = {"indonesia","easternaustralia"},
+        byWater = {true,false},
         owner = nil,
         units = 0,
         buttonindex = 40,
@@ -2010,6 +2058,7 @@ function newContinentData()
         },
       easternaustralia = {
         borders = {"newguinea","westernaustralia"},
+        byWater = {true,false},
         owner = nil,
         units = 0,
         buttonindex = 41,
