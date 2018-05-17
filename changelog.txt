@@ -5,6 +5,9 @@ Change Log
       As there are alot of states the game can be in when saving, so I may have missed a few button updates. These issues will simply
         graphical issues. The game will still continue correctly as all crucial values ARE being stored. But please do let me know about
         these issues on the issue tracker.
+    Function to check if an attack is being made over water.
+      Needed for mission and special gamerule later.
+    Tooltips to territory buttons with the territory name.
   Fixes -
     Attack Again button giving a minor error about not having a function it can call.
     Player's clock continued to tick after game over.
