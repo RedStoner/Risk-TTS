@@ -1558,6 +1558,7 @@ function newContinentData()
         buttonindex = 0,
         button = {
           index = 0, click_function = 'alaska', function_owner = self,
+          tooltip = "Alaska",
           label = 'Alaska', position = {x = -1.2, y = 1, z = -0.62}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}
@@ -1571,6 +1572,7 @@ function newContinentData()
         buttonindex = 1,
         button = {
           index = 1, click_function = 'northwestterritory', function_owner = self,
+          tooltip = "North-West Territory",
           label = 'North-West Territory', position = {x = -0.94, y = 1, z = -0.62}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}
@@ -1584,6 +1586,7 @@ function newContinentData()
         buttonindex = 2,
         button = {
           index = 2, click_function = 'greenland', function_owner = self,
+          tooltip = "Greenland",
           label = 'Greenland', position = {x = -0.41, y = 1, z = -0.72}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}
@@ -1597,6 +1600,7 @@ function newContinentData()
         buttonindex = 3,
         button = {
           index = 3, click_function = 'alberta', function_owner = self,
+          tooltip = "Alberta",
           label = 'Alberta', position = {x = -0.96, y = 1, z = -0.47}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}
@@ -1610,6 +1614,7 @@ function newContinentData()
         buttonindex = 4,
         button = {
           index = 4, click_function = 'ontario', function_owner = self,
+          tooltip = "Ontario",
           label = 'Ontario', position = {x = -0.78, y = 1, z = -0.43}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1622,6 +1627,7 @@ function newContinentData()
         buttonindex = 5,
         button = {
           index = 5, click_function = 'quebec', function_owner = self,
+          tooltip = "Quebec",
           label = 'Quebec', position = {x = -0.59, y = 1, z = -0.43}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1634,6 +1640,7 @@ function newContinentData()
         buttonindex = 6,
         button = {
           index = 6, click_function = 'westernunitedstates', function_owner = self,
+          tooltip = "Western United States",
           label = 'Western United States', position = {x = -0.95, y = 1, z = -0.27}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1646,6 +1653,7 @@ function newContinentData()
         buttonindex = 7,
         button = {
           index = 7, click_function = 'easternunitedstates', function_owner = self,
+          tooltip = "Eastern United States",
           label = 'Eastern United States', position = {x = -0.76, y = 1, z = -0.18}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1658,6 +1666,7 @@ function newContinentData()
         buttonindex = 8,
         button = {
           index = 8, click_function = 'centralamerica', function_owner = self,
+          tooltip = "Central America",
           label = 'Central America', position = {x = -0.87, y = 1, z = 0.01}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1672,6 +1681,7 @@ function newContinentData()
         buttonindex = 9,
         button = {
           index = 9, click_function = 'venezuela', function_owner = self,
+          tooltip = "enezuela",
           label = 'Venezuela', position = {x = -0.75, y = 1, z = 0.14}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1684,6 +1694,7 @@ function newContinentData()
         buttonindex = 10,
         button = {
           index = 10, click_function = 'peru', function_owner = self,
+          tooltip = "Peru",
           label = 'Peru', position = {x = -0.68, y = 1, z = 0.39}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1696,6 +1707,7 @@ function newContinentData()
         buttonindex = 11,
         button = {
           index = 11, click_function = 'brazil', function_owner = self,
+          tooltip = "Brazil",
           label = 'Brazil', position = {x = -0.53, y = 1, z = 0.31}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1708,6 +1720,7 @@ function newContinentData()
         buttonindex = 12,
         button = {
           index = 12, click_function = 'argentina', function_owner = self,
+          tooltip = "Argentina",
           label = 'Argentina', position = {x = -0.64, y = 1, z = 0.58}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1722,6 +1735,7 @@ function newContinentData()
         buttonindex = 13,
         button = {
           index = 13, click_function = 'iceland', function_owner = self,
+          tooltip = "Iceland",
           label = 'Iceland', position = {x = -0.19, y = 1, z = -0.53}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1734,6 +1748,7 @@ function newContinentData()
         buttonindex = 14,
         button = {
           index = 14, click_function = 'scandinavia', function_owner = self,
+          tooltip = "Scandinavia",
           label = 'Scandinavia', position = {x = 0.04, y = 1, z = -0.59}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1746,6 +1761,7 @@ function newContinentData()
         buttonindex = 15,
         button = {
           index = 15, click_function = 'ukrane', function_owner = self,
+          tooltip = "Ukrane",
           label = 'Ukrane', position = {x = 0.29, y = 1, z = -0.41}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1758,6 +1774,7 @@ function newContinentData()
         buttonindex = 16,
         button = {
           index = 16, click_function = 'greatbritain', function_owner = self,
+          tooltip = "Great Britain",
           label = 'Great Britain', position = {x = -0.23, y = 1, z = -0.3}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1770,6 +1787,7 @@ function newContinentData()
         buttonindex = 17,
         button = {
           index = 17, click_function = 'northerneurope', function_owner = self,
+          tooltip = "Northern Europe",
           label = 'Northern Europe', position = {x = 0.07, y = 1, z = -0.26}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1782,6 +1800,7 @@ function newContinentData()
         buttonindex = 18,
         button = {
           index = 18, click_function = 'westerneurope', function_owner = self,
+          tooltip = "Western Europe",
           label = 'Western Europe', position = {x = -0.19, y = 1, z = 0}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1794,6 +1813,7 @@ function newContinentData()
         buttonindex = 19,
         button = {
           index = 19, click_function = 'southerneurope', function_owner = self,
+          tooltip = "Southern Europe",
           label = 'Southern Europe', position = {x = 0.07, y = 1, z = -0.12}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1808,6 +1828,7 @@ function newContinentData()
         buttonindex = 20,
         button = {
           index = 20, click_function = 'northafrica', function_owner = self,
+          tooltip = "North Africa",
           label = 'North Africa', position = {x = -0.07, y = 1, z = 0.28}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1820,6 +1841,7 @@ function newContinentData()
         buttonindex = 21,
         button = {
           index = 21, click_function = 'egypt', function_owner = self,
+          tooltip = "Egypt",
           label = 'Egypt', position = {x = 0.13, y = 1, z = 0.18}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1832,6 +1854,7 @@ function newContinentData()
         buttonindex = 22,
         button = {
           index = 22, click_function = 'eastafrica', function_owner = self,
+          tooltip = "East Africa",
           label = 'East Africa', position = {x = 0.26, y = 1, z = 0.39}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1844,6 +1867,7 @@ function newContinentData()
         buttonindex = 23,
         button = {
           index = 23, click_function = 'congo', function_owner = self,
+          tooltip = "Congo",
           label = 'Congo', position = {x = 0.14, y = 1, z = 0.5}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1856,6 +1880,7 @@ function newContinentData()
         buttonindex = 24,
         button = {
           index = 24, click_function = 'southafrica', function_owner = self,
+          tooltip = "South Africa",
           label = 'South Africa', position = {x = 0.15, y = 1, z = 0.78}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1868,6 +1893,7 @@ function newContinentData()
         buttonindex = 25,
         button = {
           index = 25, click_function = 'madagascar', function_owner = self,
+          tooltip = "Madagascar",
           label = 'Madagascar', position = {x = 0.38, y = 1, z = 0.69}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1882,6 +1908,7 @@ function newContinentData()
         buttonindex = 26,
         button = {
           index = 26, click_function = 'ural', function_owner = self,
+          tooltip = "Ural",
           label = 'Ural', position = {x = 0.56, y = 1, z = -0.48}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1894,6 +1921,7 @@ function newContinentData()
         buttonindex = 27,
         button = {
           index = 27, click_function = 'siberia', function_owner = self,
+          tooltip = "Siberia",
           label = 'Siberia', position = {x = 0.7, y = 1, z = -0.58}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1906,6 +1934,7 @@ function newContinentData()
         buttonindex = 28,
         button = {
           index = 28, click_function = 'yakutsk', function_owner = self,
+          tooltip = "Yakutsk",
           label = 'Yakutsk', position = {x = 0.91, y = 1, z = -0.67}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1918,6 +1947,7 @@ function newContinentData()
         buttonindex = 29,
         button = {
           index = 29, click_function = 'kamchatka', function_owner = self,
+          tooltip = "Kamchatka",
           label = 'Kamchatka', position = {x = 1.12, y = 1, z = -0.65}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1930,6 +1960,7 @@ function newContinentData()
         buttonindex = 30,
         button = {
           index = 30, click_function = 'irkutsk', function_owner = self,
+          tooltip = "Irkutsk",
           label = 'Irkutsk', position = {x = 0.88, y = 1, z = -0.43}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1942,6 +1973,7 @@ function newContinentData()
         buttonindex = 31,
         button = {
           index = 31, click_function = 'mongolia', function_owner = self,
+          tooltip = "Mongolia",
           label = 'Mongolia', position = {x = 0.9, y = 1, z = -0.26}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1954,6 +1986,7 @@ function newContinentData()
         buttonindex = 32,
         button = {
           index = 32, click_function = 'afghanistan', function_owner = self,
+          tooltip = "Afghanistan",
           label = 'Afghanistan', position = {x = 0.52, y = 1, z = -0.21}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1966,6 +1999,7 @@ function newContinentData()
         buttonindex = 33,
         button = {
           index = 33, click_function = 'japan', function_owner = self,
+          tooltip = "Japan",
           label = 'Japan', position = {x = 1.21, y = 1, z = -0.3}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1978,6 +2012,7 @@ function newContinentData()
         buttonindex = 34,
         button = {
           index = 34, click_function = 'china', function_owner = self,
+          tooltip = "China",
           label = 'China', position = {x = 0.83, y = 1, z = -0.08}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -1990,6 +2025,7 @@ function newContinentData()
         buttonindex = 35,
         button = {
           index = 35, click_function = 'middleeast', function_owner = self,
+          tooltip = "Middle East",
           label = 'Middle East', position = {x = 0.38, y = 1, z = 0.02}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -2002,6 +2038,7 @@ function newContinentData()
         buttonindex = 36,
         button = {
           index = 36, click_function = 'india', function_owner = self,
+          tooltip = "India",
           label = 'India', position = {x = 0.66, y = 1, z = 0.06}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -2014,6 +2051,7 @@ function newContinentData()
         buttonindex = 37,
         button = {
           index = 37, click_function = 'siam', function_owner = self,
+          tooltip = "Siam",
           label = 'Siam', position = {x = 0.9, y = 1, z = 0.16}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -2028,6 +2066,7 @@ function newContinentData()
         buttonindex = 38,
         button = {
           index = 38, click_function = 'indonesia', function_owner = self,
+          tooltip = "Indonesia",
           label = 'Indonesia', position = {x = 1.02, y = 1, z = 0.48}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -2040,6 +2079,7 @@ function newContinentData()
         buttonindex = 39,
         button = {
           index = 39, click_function = 'newguinea', function_owner = self,
+          tooltip = "New Guinea",
           label = 'New Guinea', position = {x = 1.26, y = 1, z = 0.42}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -2052,6 +2092,7 @@ function newContinentData()
         buttonindex = 40,
         button = {
           index = 40, click_function = 'westernaustralia', function_owner = self,
+          tooltip = "Western Austrailia",
           label = 'Western Austrailia', position = {x = 1.06, y = 1, z = 0.64}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
@@ -2064,6 +2105,7 @@ function newContinentData()
         buttonindex = 41,
         button = {
           index = 41, click_function = 'easternaustralia', function_owner = self,
+          tooltip = "Eastern Austrailia",
           label = 'Eastern Austrailia', position = {x = 1.28, y = 1, z = 0.68}, rotation = {x = 0, y = 0, z = 0},
           scale = {x = 0.5, y = 1, z = 0.5}, width = 80, height = 54, font_size = 50,
           color = {r = 1, g = 1, b = 1, a = 1}, font_color = {r = 0, g = 0, b = 0, a = 1}}
