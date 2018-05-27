@@ -4,8 +4,8 @@
 -- Country Info
 function onLoad(save_state)
   tColor = {1,1,1}
-  debugStart = true
-  doBiasedStart = true
+  debugStart = false
+  doBiasedStart = false
   --Config Options:
   config = {}
   config.longRangeStrategic = false
@@ -344,6 +344,7 @@ function finishedLoading()
   refreshPlacementNumbers()
   setSelected(selected)
   setSelected(selectedSecondary,true)
+  leftBehind()
   -- update dice boxes
   diceAttack.call("loadSaveData",{tempDiceData[1]})
   diceDefend.call("loadSaveData",{tempDiceData[2]})
