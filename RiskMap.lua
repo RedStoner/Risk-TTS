@@ -325,7 +325,7 @@ function loadFromSave(save_state)
   for k,v in pairs(contReference) do
     continents[v][k].button.label = territoryUnitCounts[k]
     continents[v][k].button.color = pColors[territoryOwners[k]][1]
-    continents[v][k].button.text_color = pColors[territoryOwners[k]][2]
+    continents[v][k].button.font_color = pColors[territoryOwners[k]][2]
     continents[v][k].button.scale = {x= 0.5, y = 1.0, z = 0.5}
     self.editButton(continents[v][k].button)
   end
