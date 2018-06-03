@@ -48,7 +48,8 @@ function onLoad(save_state)
   configMenu = getObjectFromGUID("b1749b")
   horse = getObjectFromGUID("ced8e2")
   gameClock = getObjectFromGUID("33bbef")
-  deck = getObjectFromGUID("ff145c")
+  deckGUID = "ff145c"
+  deck = getObjectFromGUID(deckGUID)
   gameClock.Clock.setValue(0)
   gameClock.interactable = false
   self.interactable = false
@@ -234,7 +235,7 @@ function onSave()
     debugStart = debugStart,
     doBiasedStart = doBiasedStart,
     config = config,
-    deck = deck.guid,
+    deck = deckGUID,
     territoryOwners = territoryOwners,
     territoryUnitCounts = territoryUnitCounts,
     pList = pList,
@@ -296,6 +297,7 @@ function loadFromSave(save_state)
   doBiasedStart = data.doBiasedStart
   config = data.config
   deck = getObjectFromGUID(data.deck)
+  deckGUID = data.deck
   territoryOwners = data.territoryOwners
   territoryUnitCounts = data.territoryUnitCounts
   pList = data.pList
@@ -1223,6 +1225,7 @@ function setupEndTurn()
               v.setRotation({0.00, 180.00, 180.00})
               v.setPosition({-37.82, 1.27, -7.98})
               deck = v
+              deckGUID = v.guid
               lastCard = false
               isLastCard = false
               break
@@ -1238,6 +1241,7 @@ function setupEndTurn()
           broadcastToAll("Only once card left!",tColor)
           isLastCard = true
           deck = getObjectFromGUID(lastCard)
+          deckGUID = lastCard
         end
       end
       broadcastToAll(currentTurn .. " successfully attacked on their turn. They are rewarded a card.",pColor())
